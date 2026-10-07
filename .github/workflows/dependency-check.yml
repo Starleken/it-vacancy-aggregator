@@ -1,0 +1,22 @@
+name: On pull request to main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Latest Commit
+        uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: 25
+          distribution: 'graalvm'
+      - name: Build with Maven
+        run: mvn test
+  dependency-check:
+    uses: Starleken/nvd-cache/.github/workflows/dependency-check.yml@main
