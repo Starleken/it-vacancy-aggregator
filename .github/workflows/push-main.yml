@@ -1,0 +1,33 @@
+name: Push Main
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up JDK
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: 25
+          distribution: 'graalvm'
+      - name: Build with Maven
+        run: mvn package
+
+      - name: Bump Version
+        id: bump
+        uses: nnichols/maven-version-bump-action@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-username: github-actions

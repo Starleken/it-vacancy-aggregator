@@ -1,0 +1,6 @@
+DB_HOST: localhost
+DB_PORT: 5432
+DB_NAME: vacancy_aggregator
+DB_SCHEMA: vacancy_aggregator_schema
+DB_USERNAME: postgres
+DB_PASSWORD: 1111
